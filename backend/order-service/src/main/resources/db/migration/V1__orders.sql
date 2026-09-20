@@ -1,0 +1,4 @@
+CREATE TABLE orders(id uuid PRIMARY KEY,customer_id varchar(120) NOT NULL,status varchar(40) NOT NULL CHECK(status IN ('PENDING','INVENTORY_RESERVED','CONFIRMED','REJECTED','CANCELLED')),total_amount numeric(19,2) NOT NULL CHECK(total_amount>=0),created_at timestamptz NOT NULL,warehouse varchar(20) NOT NULL,request_id uuid NOT NULL UNIQUE);
+CREATE TABLE order_items(order_id uuid NOT NULL REFERENCES orders,product_id uuid NOT NULL,quantity integer NOT NULL CHECK(quantity>0),unit_price numeric(10,2) NOT NULL CHECK(unit_price>0));
+INSERT INTO orders VALUES ('20000000-0000-0000-0000-000000000001','demo-history','CONFIRMED',2595,now()-interval '1 day','WH-PUN','30000000-0000-0000-0000-000000000001');
+INSERT INTO order_items VALUES ('20000000-0000-0000-0000-000000000001','00000000-0000-0000-0000-000000000110',1,2595);

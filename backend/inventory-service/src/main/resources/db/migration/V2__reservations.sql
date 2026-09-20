@@ -1,0 +1,3 @@
+CREATE TABLE reservations(order_id uuid PRIMARY KEY,request_hash varchar(64) NOT NULL,status varchar(20) NOT NULL,reason varchar(200) NOT NULL,created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE inventory_audit(id uuid PRIMARY KEY,actor varchar(120) NOT NULL,role varchar(40) NOT NULL,timestamp timestamptz NOT NULL,operation varchar(60) NOT NULL,product_id uuid NOT NULL,warehouse_id uuid NOT NULL,previous_quantity integer NOT NULL,new_quantity integer NOT NULL,correlation_id varchar(64) NOT NULL,reason varchar(300) NOT NULL);
+CREATE INDEX inventory_audit_lookup ON inventory_audit(product_id,warehouse_id,timestamp DESC);
